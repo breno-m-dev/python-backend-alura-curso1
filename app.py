@@ -46,6 +46,8 @@ def cadastrar_restaurante():
 
 
 def listar_restaurantes():
+
+    
     limpar_tela()
     mostra_subtitulo('Lista de restaurantes')
     

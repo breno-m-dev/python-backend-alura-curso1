@@ -143,7 +143,7 @@ def escolher_opcao_menu():
 
 def main():
     #par_ou_impar()
-
+    print('programa inciando')
     escolher_opcao_menu()
 
 

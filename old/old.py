@@ -1,10 +1,8 @@
 from colorama import init, Fore, Style
-
 init(autoreset=True)
 
-
 import os
-
+from modelos.restaurante import Restaurante
 
 
 restaurantes = [ {'nome':'Praça' , 'categoria':'Japonesa', 'ativo': False},
@@ -36,7 +34,7 @@ def cadastrar_restaurante():
     
     
     nome_restaurante = input('Digite o nome do restaurante: ')
-
+    categoria_restaurante = input('Digite a categoria do restaurante: ')
     novo_restaurante = Restaurante(nome_restaurante, categoria)
     
     restaurantes.append(novo_restaurante)
@@ -67,7 +65,6 @@ def alterar_estado_restaurante():
     
     nome_restaurante = input('Digite o nome do restaurante que deseja alterar o estado: ')
     restaurante_encontrado = False
-    for restaurante in restaurantes:
     for restaurante in Restaurante.restaurantes: # Itera sobre a lista da classe
         if restaurante.nome == nome_restaurante:
             restaurante.alternar_estado()
@@ -80,8 +77,8 @@ def alterar_estado_restaurante():
             print(f'O estado do restaurante {nome_restaurante} foi desativado')
 
     else:
-    if not restaurante_encontrado:
-        print('Restaurante não encontrado')
+        if not restaurante_encontrado:
+            print('Restaurante não encontrado')
 
 
     pausar()

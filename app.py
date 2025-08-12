@@ -1,7 +1,10 @@
 from colorama import init, Fore, Style
+
 init(autoreset=True)
 
+
 import os
+
 
 
 restaurantes = [ {'nome':'Praça' , 'categoria':'Japonesa', 'ativo': False},
@@ -33,14 +36,12 @@ def cadastrar_restaurante():
     
     
     nome_restaurante = input('Digite o nome do restaurante: ')
-    categoria = input(f'Digite o nome da categoria do restaurante {nome_restaurante}: ')
 
-    restaurante = {'nome': nome_restaurante,
-                   'categoria': categoria,
-                   'ativo': False}
+    novo_restaurante = Restaurante(nome_restaurante, categoria)
     
-    restaurantes.append(restaurante)
+    restaurantes.append(novo_restaurante)
     
+    Restaurante(nome_restaurante, categoria) # A instância é adicionada à lista da classe no __init__
     print(Style.BRIGHT + Fore.GREEN + f'O restaurante {nome_restaurante} foi cadastrado com sucesso!\n')
     pausar()
 
@@ -52,10 +53,10 @@ def listar_restaurantes():
     mostra_subtitulo('Lista de restaurantes')
     
     print(f'- {'Nome do restaurante'.ljust(20)} | {'Categoria'.ljust(20)} | Estado')
-
     for restaurante in restaurantes:
-        ativo ='ativado' if restaurante['ativo'] else 'desativado'
-        print(f'- {restaurante['nome'].ljust(20)} | {restaurante['categoria'].ljust(20)} | {ativo}')
+        ativo ='ativado' if restaurante.ativo else 'desativado'
+        print(f'- {restaurante.nome.ljust(20)} | {restaurante.categoria.ljust(20)} | {ativo}')
+        print(f'- {restaurante.nome.ljust(20)} | {restaurante.categoria.ljust(20)} | {restaurante.ativo}')
     
     pausar()
 
@@ -66,20 +67,20 @@ def alterar_estado_restaurante():
     
     nome_restaurante = input('Digite o nome do restaurante que deseja alterar o estado: ')
     restaurante_encontrado = False
-    
     for restaurante in restaurantes:
-        if restaurante['nome'] == nome_restaurante:
-            restaurante['ativo'] = not restaurante['ativo']
-            restaurante_encontrado = True
+    for restaurante in Restaurante.restaurantes: # Itera sobre a lista da classe
+        if restaurante.nome == nome_restaurante:
+            restaurante.alternar_estado()
+            print(f'O estado do restaurante {nome_restaurante} foi alterado para {restaurante.ativo}')
             break
-    
     if restaurante_encontrado:
-        if restaurante['ativo']:
+        if restaurante.ativo:
             print(f'O estado do restaurante {nome_restaurante} foi ativado')
         else:
             print(f'O estado do restaurante {nome_restaurante} foi desativado')
 
     else:
+    if not restaurante_encontrado:
         print('Restaurante não encontrado')
 
 
